@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../destination_carousel.dart';
+import 'package:iphonexsocialapp/widgets/destination_carousel.dart';
+import 'package:iphonexsocialapp/widgets/hotel_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  int _currentTab = 0;
   final _icons = <IconData>[
     FontAwesomeIcons.plane,
     FontAwesomeIcons.bed,
@@ -55,6 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentTab = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,10 +83,34 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             _getIcons(),
-            SizedBox(height: 20.0,),
+            SizedBox(height: 20.0),
             DestionationCarousel(),
+            SizedBox(height: 20.0),
+            HotelCarousel()
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search, size: 30,),
+            title: SizedBox.shrink(),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_pizza),
+            title: SizedBox.shrink(),
+          ),
+          BottomNavigationBarItem(
+            icon: CircleAvatar(
+              radius: 15.0,
+              backgroundImage: NetworkImage('https://avatars3.githubusercontent.com/u/10209064?s=460&v=4'),
+            ),
+            title: SizedBox.shrink(),
+          ),
+        ],
+        currentIndex: _currentTab,
+        selectedItemColor: Theme.of(context).primaryColor,
+        onTap: _onItemTapped,
       ),
     );
   }

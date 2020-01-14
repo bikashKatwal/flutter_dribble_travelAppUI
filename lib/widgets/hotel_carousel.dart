@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:iphonexsocialapp/models/destination_model.dart';
 
-class DestionationCarousel extends StatelessWidget {
+import 'package:iphonexsocialapp/models/hotel_model.dart';
+
+class HotelCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,7 +14,7 @@ class DestionationCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Top Destinations',
+                'Exclusive Hotels',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -41,11 +41,11 @@ class DestionationCarousel extends StatelessWidget {
           height: 300,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: destinations.length,
+            itemCount: hotels.length,
             itemBuilder: (context, i) {
-              Destination _destination = destinations[i];
+              Hotel _hotel = hotels[i];
               return Container(
-                width: 210,
+                width: 240,
                 margin: EdgeInsets.all(10.0),
                 child: Stack(
                   alignment: Alignment.topCenter,
@@ -54,7 +54,7 @@ class DestionationCarousel extends StatelessWidget {
                       bottom: 15.0,
                       child: Container(
                         height: 120,
-                        width: 200,
+                        width: 240,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
                           color: Colors.white,
@@ -62,20 +62,32 @@ class DestionationCarousel extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                '${_destination.activities.length} activities',
+                                _hotel.name,
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: 1.2),
                               ),
+                              SizedBox(
+                                height: 2.0,
+                              ),
                               Text(
-                                _destination.description,
+                                _hotel.address,
                                 style: TextStyle(color: Colors.grey),
-                              )
+                              ),
+                              SizedBox(
+                                height: 2.0,
+                              ),
+                              Text(
+                                '\$${_hotel.price} /night',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -93,52 +105,14 @@ class DestionationCarousel extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Stack(
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image(
-                              height: 180.0,
-                              width: 180.0,
-                              image: AssetImage(_destination.imageUrl),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            left: 10.0,
-                            bottom: 10.0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  _destination.city,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.2,
-                                  ),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      FontAwesomeIcons.locationArrow,
-                                      size: 10.0,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 5.0),
-                                    Text(
-                                      _destination.country,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image(
+                          height: 180.0,
+                          width: 220.0,
+                          image: AssetImage(_hotel.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ],
